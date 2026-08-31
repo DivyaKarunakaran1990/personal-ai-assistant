@@ -1,0 +1,8 @@
+fastapi==0.128.8
+uvicorn==0.39.0
+SQLAlchemy==2.0.52
+pydantic==2.13.4
+pypdf==6.16.1
+python-multipart==0.0.20
+ollama==0.6.2
+httpx==0.28.1
