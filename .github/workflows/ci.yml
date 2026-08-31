@@ -52,3 +52,17 @@ jobs:
         with:
           name: frontend-build
           path: frontend/dist
+
+  docker:
+    runs-on: ubuntu-latest
+        
+    needs:
+        - backend
+        - frontend
+        
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Build Docker image
+        run: docker build -t personal-ai-backend ./backend
