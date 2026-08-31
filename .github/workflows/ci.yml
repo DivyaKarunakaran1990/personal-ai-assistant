@@ -57,12 +57,26 @@ jobs:
     runs-on: ubuntu-latest
         
     needs:
-        - backend
-        - frontend
+      - backend
+      - frontend
+        
+    permissions:
+      contents: read
+      packages: write
         
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+        
       - name: Build Docker image
-        run: docker build -t personal-ai-backend ./backend
+        run: docker build -t ghcr.io/${{ github.repository }}/personal-ai-backend:latest ./backend
+        
+      - name: Push Docker image
+        run: docker push ghcr.io/${{ github.repository }}/personal-ai-backend:latest
