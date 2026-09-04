@@ -35,8 +35,6 @@ build/
 
 
 # Terraform
-terraform/.terraform/
-terraform/*.tfstate
-terraform/*.tfstate.*
-terraform/*.tfplan
-terraform/platform-demo.txt
+.terraform/
+*.tfstate
+*.tfstate.*
