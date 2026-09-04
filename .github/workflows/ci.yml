@@ -9,7 +9,7 @@ on:
 jobs:
 
   backend:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest #Runner
 
     steps:
       - name: Checkout code
@@ -84,3 +84,4 @@ jobs:
         run: |
             IMAGE_NAME=$(echo "ghcr.io/${{ github.repository }}/personal-ai-backend" | tr '[:upper:]' '[:lower:]')
             docker push "$IMAGE_NAME:latest"
+            
