@@ -38,3 +38,4 @@ build/
 .terraform/
 *.tfstate
 *.tfstate.*
+terraform/*.tfvars

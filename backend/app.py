@@ -9,6 +9,14 @@ from ai.assistant import ask_ai
 from fastapi.middleware.cors import CORSMiddleware
 from services.pdf_service import save_pdf, extract_pdf_text
 
+from prometheus_fastapi_instrumentator import Instrumentator
+
+from opentelemetry import trace
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+
 
 Base.metadata.create_all(bind=engine)
 
@@ -18,9 +26,27 @@ app = FastAPI(
     version="1.0.0"
 )
 
+# OpenTelemetry tracing
+trace.set_tracer_provider(TracerProvider())
+
+otlp_exporter = OTLPSpanExporter(
+    endpoint="http://localhost:4318/v1/traces"
+)
+
+span_processor = BatchSpanProcessor(otlp_exporter)
+
+trace.get_tracer_provider().add_span_processor(span_processor)
+
+FastAPIInstrumentor.instrument_app(app)
+
+instrumentator = Instrumentator()
+instrumentator.instrument(app)
+instrumentator.expose(app, endpoint="/metrics")
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
+        "http://localhost:3000",
         "http://localhost:5174",
         "http://localhost:5173"
     ],
