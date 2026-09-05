@@ -12,5 +12,5 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "demo" {
-  bucket = "divya-terraform-demo-20260904"
+  bucket = "divya-terraform-demo-20260904-${var.environment}"
 }

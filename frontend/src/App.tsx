@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
 import "./App.css";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
 type Message = {
   role: "user" | "ai";
   content: string;
@@ -43,7 +45,7 @@ function App() {
 
     try {
       const response = await fetch(
-        "http://localhost:8000/upload-pdf",
+        `${API_URL}/upload-pdf`,
         {
           method: "POST",
           body: formData,
@@ -106,7 +108,7 @@ function App() {
       console.log("Sending to backend:", userMessage);
 
       const response = await fetch(
-        "http://localhost:8000/chat",
+        `${API_URL}/chat`,
         {
           method: "POST",
           headers: {
