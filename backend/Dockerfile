@@ -10,7 +10,7 @@ COPY . .
 
 EXPOSE 8000
 
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "app:app", "--name", "backend-service", "--host", "0.0.0.0", "--port", "8000"]
 
 # docker run -p 8000:8000 personal-ai-backend
 # docker ps //Shows running containers
