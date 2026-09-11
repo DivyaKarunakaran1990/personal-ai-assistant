@@ -11,6 +11,7 @@ provider "aws" {
   region = "ap-southeast-2"
 }
 
-resource "aws_s3_bucket" "demo" {
-  bucket = "divya-terraform-demo-20260904-${var.environment}"
-}
+
+# resource "aws_s3_bucket" "demo" {
+#   bucket = "divya-terraform-demo-20260904-${var.environment}"
+# }
